@@ -1,5 +1,6 @@
 import * as React from 'react';
+import IndexPage from '@/components/Pages/IndexPage';
 
-const IndexPage: React.FC = () => <h1>hello</h1>;
+const Index: React.FC = () => <IndexPage />;
 
-export default IndexPage;
+export default Index;
