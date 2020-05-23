@@ -5,6 +5,7 @@ import { Button, TextField } from '@material-ui/core';
 interface IProps {
   inputText: string;
   onChangeInput: (input: string) => void;
+  onSubmit: (input: string) => void;
 }
 
 const ModalContainer = styled.div({
@@ -22,7 +23,11 @@ const ActionContainer = styled.div({
   textAlign: 'right',
 });
 
-const FormModal: React.FC<IProps> = ({ inputText, onChangeInput }) => {
+const FormModal: React.FC<IProps> = ({
+  inputText,
+  onChangeInput,
+  onSubmit,
+}) => {
   return (
     <ModalContainer>
       <h1>Create todo</h1>
@@ -38,8 +43,12 @@ const FormModal: React.FC<IProps> = ({ inputText, onChangeInput }) => {
         }}
       />
       <ActionContainer>
-        <Button variant="contained" color="primary">
-          Primary
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => onSubmit(inputText)}
+        >
+          Submit
         </Button>
       </ActionContainer>
     </ModalContainer>

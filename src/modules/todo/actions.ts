@@ -15,8 +15,17 @@ export const setInputText = (
   payload,
 });
 
+export interface ISubmit extends Action {
+  type: ActionTypes.SUBMIT;
+}
+
+export const submit = (): ISubmit => ({
+  type: ActionTypes.SUBMIT,
+});
+
 export const actions = {
   setInputText,
+  submit,
 };
 
-export type IActions = ISetInputText;
+export type IActions = ISetInputText | ISubmit;
