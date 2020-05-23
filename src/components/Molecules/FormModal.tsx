@@ -2,6 +2,11 @@ import * as React from 'react';
 import styled from '@emotion/styled';
 import { Button, TextField } from '@material-ui/core';
 
+interface IProps {
+  inputText: string;
+  onChangeInput: (input: string) => void;
+}
+
 const ModalContainer = styled.div({
   width: '40%',
   minWidth: '400px',
@@ -17,7 +22,7 @@ const ActionContainer = styled.div({
   textAlign: 'right',
 });
 
-const FormModal: React.FC = () => {
+const FormModal: React.FC<IProps> = ({ inputText, onChangeInput }) => {
   return (
     <ModalContainer>
       <h1>Create todo</h1>
@@ -27,6 +32,10 @@ const FormModal: React.FC = () => {
         helperText="write something to do"
         fullWidth
         margin="normal"
+        value={inputText}
+        onChange={(event: any) => {
+          onChangeInput(event.target.value);
+        }}
       />
       <ActionContainer>
         <Button variant="contained" color="primary">
