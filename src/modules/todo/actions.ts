@@ -15,17 +15,38 @@ export const setInputText = (
   payload,
 });
 
-export interface ISubmit extends Action {
-  type: ActionTypes.SUBMIT;
+export interface IRequestCreate extends Action {
+  type: ActionTypes.REQUEST_CREATE;
 }
 
-export const submit = (): ISubmit => ({
-  type: ActionTypes.SUBMIT,
+export const requestCreate = (): IRequestCreate => ({
+  type: ActionTypes.REQUEST_CREATE,
+});
+
+export interface ISuccessCreate extends Action {
+  type: ActionTypes.SUCCESS_CREATE;
+}
+
+export const successCreate = (): ISuccessCreate => ({
+  type: ActionTypes.SUCCESS_CREATE,
+});
+export interface IFailureCreate extends Action {
+  type: ActionTypes.FAILURE_CREATE;
+}
+
+export const failureCreate = (): IFailureCreate => ({
+  type: ActionTypes.FAILURE_CREATE,
 });
 
 export const actions = {
   setInputText,
-  submit,
+  requestCreate,
+  successCreate,
+  failureCreate,
 };
 
-export type IActions = ISetInputText | ISubmit;
+export type IActions =
+  | ISetInputText
+  | IRequestCreate
+  | ISuccessCreate
+  | IFailureCreate;

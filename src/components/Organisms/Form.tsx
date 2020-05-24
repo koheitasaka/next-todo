@@ -1,11 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
 // import { bindActionCreators } from 'redux';
-import { IStore } from '@/modules/store';
+import { IStore, ThunkDispatch } from '@/modules/store';
 import { todoOperations } from '@/modules/todo';
-import { todoListOperations } from '@/modules/todoList';
-import { ITodo } from '@/modules/types';
 import styled from '@emotion/styled';
 import { Button, Modal } from '@material-ui/core';
 import FormModal from '@/components/Molecules/FormModal';
@@ -14,7 +11,7 @@ const mapStateToProps = (store: IStore) => ({
   todo: store.todo,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
+const mapDispatchToProps = (dispatch: ThunkDispatch) => ({
   // ...bindActionCreators(
   //   {
   //     ...todoOperations,
@@ -22,13 +19,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   //   dispatch,
   // ),
   setInputText: (input: string) => dispatch(todoOperations.setInputText(input)),
-  onSubmit: (input: string) => {
-    dispatch(todoOperations.submitTodo());
-    const todo: ITodo = {
-      title: input,
-    };
-    dispatch(todoListOperations.addTodo(todo));
-  },
+  createTodo: (callback: () => void) =>
+    dispatch(todoOperations.createTodo(callback)),
 });
 
 type IProps = ReturnType<typeof mapStateToProps> &
@@ -39,7 +31,7 @@ const Container = styled.div({
   justifyContent: 'flex-end',
 });
 
-const Form: React.FC<IProps> = ({ todo, setInputText, onSubmit }) => {
+const Form: React.FC<IProps> = ({ todo, setInputText, createTodo }) => {
   const [isFormOpen, setFormOpen] = React.useState<boolean>(false);
 
   const handleFormOpen = () => {
@@ -48,6 +40,10 @@ const Form: React.FC<IProps> = ({ todo, setInputText, onSubmit }) => {
 
   const handleFormClose = () => {
     setFormOpen(false);
+  };
+
+  const onSubmit = () => {
+    createTodo(() => handleFormClose());
   };
 
   return (
@@ -61,6 +57,7 @@ const Form: React.FC<IProps> = ({ todo, setInputText, onSubmit }) => {
             inputText={todo.inputText}
             onChangeInput={setInputText}
             onSubmit={onSubmit}
+            isSubmitting={todo.isCreating}
           />
         </React.Fragment>
       </Modal>

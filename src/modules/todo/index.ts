@@ -5,6 +5,7 @@ import reducer from './reducers';
 
 export interface IState {
   inputText: string;
+  isCreating: boolean;
 }
 
 export {

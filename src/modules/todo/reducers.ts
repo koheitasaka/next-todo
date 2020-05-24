@@ -4,6 +4,7 @@ import { IState } from './index';
 
 const initialState: IState = {
   inputText: '',
+  isCreating: false,
 };
 
 const reducer = (state: IState = initialState, action: IActions) => {
@@ -13,10 +14,21 @@ const reducer = (state: IState = initialState, action: IActions) => {
         ...state,
         inputText: action.payload.inputText,
       };
-    case ActionTypes.SUBMIT:
+    case ActionTypes.REQUEST_CREATE:
+      return {
+        ...state,
+        isCreating: true,
+      };
+    case ActionTypes.SUCCESS_CREATE:
       return {
         ...state,
         inputText: '',
+        isCreating: false,
+      };
+    case ActionTypes.FAILURE_CREATE:
+      return {
+        ...state,
+        isCreating: false,
       };
     default:
       return state;

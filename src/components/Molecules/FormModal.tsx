@@ -5,7 +5,8 @@ import { Button, TextField } from '@material-ui/core';
 interface IProps {
   inputText: string;
   onChangeInput: (input: string) => void;
-  onSubmit: (input: string) => void;
+  onSubmit: () => void;
+  isSubmitting: boolean;
 }
 
 const ModalContainer = styled.div({
@@ -27,6 +28,7 @@ const FormModal: React.FC<IProps> = ({
   inputText,
   onChangeInput,
   onSubmit,
+  isSubmitting,
 }) => {
   return (
     <ModalContainer>
@@ -46,9 +48,10 @@ const FormModal: React.FC<IProps> = ({
         <Button
           variant="contained"
           color="primary"
-          onClick={() => onSubmit(inputText)}
+          onClick={() => onSubmit()}
+          disabled={isSubmitting}
         >
-          Submit
+          {isSubmitting ? 'Submitting...' : 'Submit'}
         </Button>
       </ActionContainer>
     </ModalContainer>

@@ -1,4 +1,6 @@
 export enum ActionTypes {
   SET_INPUT_TEXT = 'todo/SET_INPUT_TEXT',
-  SUBMIT = 'todo/SUBMIT',
+  REQUEST_CREATE = 'todo/REQUEST_CREATE',
+  SUCCESS_CREATE = 'todo/SUCCESS_CREATE',
+  FAILURE_CREATE = 'todo/FAILURE_CREATE',
 }

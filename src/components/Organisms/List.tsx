@@ -5,9 +5,7 @@ import { Dispatch } from 'redux';
 import { IStore } from '@/modules/store';
 import { todoOperations } from '@/modules/todo';
 import { todoListOperations } from '@/modules/todoList';
-import { ITodo } from '@/modules/types';
 import styled from '@emotion/styled';
-import { Button, Modal } from '@material-ui/core';
 import ListItem from '@/components/Molecules/ListItem';
 
 const mapStateToProps = (store: IStore) => ({
@@ -35,8 +33,8 @@ const Container = styled.div({
 const List: React.FC<IProps> = ({ todos }) => {
   return (
     <Container>
-      {todos.map(todo => (
-        <ListItem todo={todo} />
+      {todos.map((todo, i) => (
+        <ListItem key={`${i}-${todo.title}`} todo={todo} />
       ))}
     </Container>
   );
