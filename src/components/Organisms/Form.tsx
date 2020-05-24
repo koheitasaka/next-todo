@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { Dispatch } from 'redux';
+// import { bindActionCreators } from 'redux';
 import { IStore } from '@/modules/store';
 import { todoOperations } from '@/modules/todo';
 import { todoListOperations } from '@/modules/todoList';
@@ -13,7 +14,7 @@ const mapStateToProps = (store: IStore) => ({
   todo: store.todo,
 });
 
-const mapDispatchToProps = (dispatch: any) => ({
+const mapDispatchToProps = (dispatch: Dispatch) => ({
   // ...bindActionCreators(
   //   {
   //     ...todoOperations,
