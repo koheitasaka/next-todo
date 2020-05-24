@@ -1,3 +1,3 @@
 export interface ITodo {
-  text: string;
+  title: string;
 }

@@ -25,7 +25,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   onSubmit: (input: string) => {
     dispatch(todoOperations.submitTodo());
     const todo: ITodo = {
-      text: input,
+      title: input,
     };
     dispatch(todoListOperations.addTodo(todo));
   },
@@ -56,11 +56,13 @@ const Form: React.FC<IProps> = ({ todo, setInputText, onSubmit }) => {
         New
       </Button>
       <Modal open={isFormOpen} onClose={handleFormClose}>
-        <FormModal
-          inputText={todo.inputText}
-          onChangeInput={setInputText}
-          onSubmit={onSubmit}
-        />
+        <React.Fragment>
+          <FormModal
+            inputText={todo.inputText}
+            onChangeInput={setInputText}
+            onSubmit={onSubmit}
+          />
+        </React.Fragment>
       </Modal>
     </Container>
   );
