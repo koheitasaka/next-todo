@@ -1,0 +1,15 @@
+import { ActionTypes } from './types';
+import { actions } from './actions';
+import * as operations from './operations';
+import { reducer } from './reducers';
+
+export interface IState {
+  inputText: string;
+}
+
+export {
+  reducer as todoReducer,
+  actions as todoActions,
+  operations as todOperations,
+  ActionTypes as todoActionTypes,
+};
