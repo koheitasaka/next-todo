@@ -17,7 +17,12 @@ const ActionContainer = styled.div({
   textAlign: 'right',
 });
 
-const FormModal: React.FC = () => {
+interface IProps {
+  inputText: string;
+  onChangeInput: (input: string) => void;
+}
+
+const FormModal: React.FC<IProps> = ({ inputText, onChangeInput }) => {
   return (
     <ModalContainer>
       <TextField
@@ -26,6 +31,8 @@ const FormModal: React.FC = () => {
         helperText="write something to do"
         fullWidth
         margin="normal"
+        value={inputText}
+        onChange={(event: any) => onChangeInput(event.target.value)}
       />
       <ActionContainer>
         <Button variant="contained" color="secondary">

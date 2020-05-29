@@ -1,6 +1,10 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
 import { Button, Modal } from '@material-ui/core';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { IStore } from '@/modules/store';
+import { todOperations } from '@/modules/todo';
 import FormModal from '../Molecules/FormModal';
 
 const Container = styled.div({
@@ -8,7 +12,24 @@ const Container = styled.div({
   justifyContent: 'flex-end',
 });
 
-const Form: React.FC = () => {
+const mapStateToProps = (state: IStore) => ({
+  // ...bindActionCreators(
+  //   {
+  //     ...todoOperations,
+  //   },
+  //   dispatch,
+  // ),
+  todo: state.todo,
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+  setInputText: (input: string) => dispatch(todOperations.setInputText(input)),
+});
+
+type IProps = ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps>;
+
+const Form: React.FC<IProps> = ({ todo, setInputText }) => {
   const [isFormOpen, setFormOpen] = React.useState<boolean>(false);
 
   const handleOpen = () => {
@@ -24,10 +45,10 @@ const Form: React.FC = () => {
         new
       </Button>
       <Modal open={isFormOpen} onClose={handleFormClose}>
-        <FormModal />
+        <FormModal inputText={todo.inputText} onChangeInput={setInputText} />
       </Modal>
     </Container>
   );
 };
 
-export default Form;
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
