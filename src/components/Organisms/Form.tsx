@@ -4,7 +4,8 @@ import { Button, Modal } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { IStore } from '@/modules/store';
-import { todOperations } from '@/modules/todo';
+import { todoOperations } from '@/modules/todo';
+import { todoLlistOperations } from '@/modules/todoList';
 import FormModal from '../Molecules/FormModal';
 
 const Container = styled.div({
@@ -20,16 +21,24 @@ const mapStateToProps = (state: IStore) => ({
   //   dispatch,
   // ),
   todo: state.todo,
+  toDoList: state.todoList,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-  setInputText: (input: string) => dispatch(todOperations.setInputText(input)),
+  setInputText: (input: string) => dispatch(todoOperations.setInputText(input)),
+  onSubmit: (input: string) => {
+    dispatch(todoOperations.submitTodo);
+    const todo = {
+      text: input,
+    };
+    dispatch(todoLlistOperations.addTodo(todo));
+  },
 });
 
 type IProps = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
-const Form: React.FC<IProps> = ({ todo, setInputText }) => {
+const Form: React.FC<IProps> = ({ todo, setInputText, onSubmit }) => {
   const [isFormOpen, setFormOpen] = React.useState<boolean>(false);
 
   const handleOpen = () => {
@@ -45,7 +54,11 @@ const Form: React.FC<IProps> = ({ todo, setInputText }) => {
         new
       </Button>
       <Modal open={isFormOpen} onClose={handleFormClose}>
-        <FormModal inputText={todo.inputText} onChangeInput={setInputText} />
+        <FormModal
+          inputText={todo.inputText}
+          onChangeInput={setInputText}
+          onSubmit={onSubmit}
+        />
       </Modal>
     </Container>
   );

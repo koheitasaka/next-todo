@@ -3,20 +3,15 @@ import { ActionTypes } from './types';
 import { IState } from '.';
 
 const initialState: IState = {
-  inputText: '',
+  todos: [],
 };
 
 export const reducer = (state: IState = initialState, action: IActions) => {
   switch (action.type) {
-    case ActionTypes.SET_INPUT_TEXT:
+    case ActionTypes.ADD_TODO:
       return {
         ...state,
-        inputText: action.payload.inputText,
-      };
-    case ActionTypes.SUBMIT:
-      return {
-        ...state,
-        inputText: '',
+        todos: [...state.todos, action.payload.todo],
       };
     default:
       break;

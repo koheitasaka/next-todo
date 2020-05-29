@@ -1,15 +1,16 @@
+import { ITodo } from '../types';
 import { ActionTypes } from './types';
 import { actions } from './actions';
 import * as operations from './operations';
 import { reducer } from './reducers';
 
 export interface IState {
-  inputText: string;
+  todos: ReadonlyArray<ITodo>;
 }
 
 export {
-  reducer as todoReducer,
-  actions as todoActions,
-  operations as todoOperations,
-  ActionTypes as todoActionTypes,
+  reducer as todoListReducer,
+  actions as todoListActions,
+  operations as todoLlistOperations,
+  ActionTypes as todoListActionTypes,
 };

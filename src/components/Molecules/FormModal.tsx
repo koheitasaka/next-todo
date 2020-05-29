@@ -20,9 +20,14 @@ const ActionContainer = styled.div({
 interface IProps {
   inputText: string;
   onChangeInput: (input: string) => void;
+  onSubmit: (input: string) => void;
 }
 
-const FormModal: React.FC<IProps> = ({ inputText, onChangeInput }) => {
+const FormModal: React.FC<IProps> = ({
+  inputText,
+  onChangeInput,
+  onSubmit,
+}) => {
   return (
     <ModalContainer>
       <TextField
@@ -35,7 +40,11 @@ const FormModal: React.FC<IProps> = ({ inputText, onChangeInput }) => {
         onChange={(event: any) => onChangeInput(event.target.value)}
       />
       <ActionContainer>
-        <Button variant="contained" color="secondary">
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => onSubmit(inputText)}
+        >
           submit
         </Button>
       </ActionContainer>
