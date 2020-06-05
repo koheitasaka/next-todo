@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from '@emotion/styled';
 import { Button, Modal } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { Dispatch, bindActionCreators } from 'redux';
 import { IStore } from '@/modules/store';
 import { todoOperations } from '@/modules/todo';
 import { todoLlistOperations } from '@/modules/todoList';
@@ -24,12 +24,12 @@ const mapStateToProps = (state: IStore) => ({
   toDoList: state.todoList,
 });
 
-const mapDispatchToProps = (dispatch: any) => ({
+const mapDispatchToProps = (dispatch: Dispatch) => ({
   setInputText: (input: string) => dispatch(todoOperations.setInputText(input)),
   onSubmit: (input: string) => {
-    dispatch(todoOperations.submitTodo);
+    dispatch(todoOperations.submitTodo());
     const todo = {
-      text: input,
+      title: input,
     };
     dispatch(todoLlistOperations.addTodo(todo));
   },
@@ -54,11 +54,13 @@ const Form: React.FC<IProps> = ({ todo, setInputText, onSubmit }) => {
         new
       </Button>
       <Modal open={isFormOpen} onClose={handleFormClose}>
-        <FormModal
-          inputText={todo.inputText}
-          onChangeInput={setInputText}
-          onSubmit={onSubmit}
-        />
+        <React.Fragment>
+          <FormModal
+            inputText={todo.inputText}
+            onChangeInput={setInputText}
+            onSubmit={onSubmit}
+          />
+        </React.Fragment>
       </Modal>
     </Container>
   );

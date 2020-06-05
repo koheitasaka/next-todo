@@ -1,12 +1,12 @@
-import { IActions } from './actions';
 import { ActionTypes } from './types';
-import { IState } from '.';
+import { IActions } from './actions';
+import { IState } from './index';
 
 const initialState: IState = {
   todos: [],
 };
 
-export const reducer = (state: IState = initialState, action: IActions) => {
+const reducer = (state: IState = initialState, action: IActions) => {
   switch (action.type) {
     case ActionTypes.ADD_TODO:
       return {
@@ -14,6 +14,8 @@ export const reducer = (state: IState = initialState, action: IActions) => {
         todos: [...state.todos, action.payload.todo],
       };
     default:
-      break;
+      return state;
   }
 };
+
+export default reducer;

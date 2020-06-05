@@ -1,12 +1,12 @@
-import { IActions } from './actions';
 import { ActionTypes } from './types';
-import { IState } from '.';
+import { IActions } from './actions';
+import { IState } from './index';
 
 const initialState: IState = {
   inputText: '',
 };
 
-export const reducer = (state: IState = initialState, action: IActions) => {
+const reducer = (state: IState = initialState, action: IActions) => {
   switch (action.type) {
     case ActionTypes.SET_INPUT_TEXT:
       return {
@@ -19,6 +19,8 @@ export const reducer = (state: IState = initialState, action: IActions) => {
         inputText: '',
       };
     default:
-      break;
+      return state;
   }
 };
+
+export default reducer;
